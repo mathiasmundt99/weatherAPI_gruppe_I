@@ -1,8 +1,17 @@
 const key = "513ba87c99fa4dbda65140408252910"; // din gyldige nøgle
 
+// DOM elementer
 const cityInput = document.getElementById("cityInput");
 const suggestions = document.getElementById("suggestions");
 const result = document.getElementById("result");
+
+const uvBox = document.getElementById("uvBox");
+const sunriseBox = document.getElementById("sunriseBox");
+const sunsetBox = document.getElementById("sunsetBox");
+const feelsBox = document.getElementById("feelsBox");
+const windBox = document.getElementById("windBox");
+
+const hourlyScroll = document.getElementById("hourlyScroll");
 
 // Input event
 cityInput.addEventListener("input", () => {
@@ -10,7 +19,7 @@ cityInput.addEventListener("input", () => {
   getSuggestions(query);
 });
 
-// Autocomplete forslag
+// Hent autocomplete forslag
 async function getSuggestions(query) {
   suggestions.innerHTML = "";
   if (query.length < 2) return;
@@ -36,11 +45,11 @@ async function getSuggestions(query) {
 }
 
 // Hent vejr + forecast
-async function getWeather(city) {
+async function getWeather(cityOrCoords) {
   result.textContent = "Henter vejr...";
 
   try {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${encodeURIComponent(city)}&days=8&aqi=no&alerts=no&lang=da`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${encodeURIComponent(cityOrCoords)}&days=8&aqi=no&alerts=no&lang=da`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -52,7 +61,57 @@ async function getWeather(city) {
     const current = data.current;
     const forecast = data.forecast.forecastday;
 
-    // Aktuelt vejr
+    // Opdater de 4 store bokse
+    uvBox.textContent = `UV: ${current.uv}`;
+    sunriseBox.textContent = `Solopgang: ${forecast[0].astro.sunrise}`;
+    sunsetBox.textContent = `Solnedgang: ${forecast[0].astro.sunset}`;
+    feelsBox.textContent = `Føles som: ${current.feelslike_c}°C`;
+    windBox.textContent = `Vindstyrke: ${current.wind_kph} km/t`;
+
+    // Time-for-time prognose
+   // Time-for-time prognose (kun temp + ikon)
+// Time-for-time prognose (kun temp + ikon) fra nu
+hourlyScroll.innerHTML = ""; // ryd tidligere bokse
+
+const now = new Date(); 
+const currentHour = now.getHours(); // 0-23
+
+// Time-for-time prognose – næste 24 timer
+hourlyScroll.innerHTML = ""; // ryd tidligere bokse
+
+// Lav et array med alle timer fra i dag + i morgen
+let allHours = [...forecast[0].hour];
+if (forecast[1]) { // tjek om der er næste dag
+  allHours = allHours.concat(forecast[1].hour);
+}
+
+// Tag kun næste 24 timer
+let count = 0;
+for (let i = 0; i < allHours.length && count < 24; i++) {
+  const hourData = allHours[i];
+  const hourTime = parseInt(hourData.time.split(" ")[1].split(":")[0]);
+  // Beregn om vi skal vise denne time
+  const show = (hourData.time.split(" ")[0] === forecast[0].date && hourTime >= currentHour)
+              || hourData.time.split(" ")[0] === forecast[1]?.date
+              || (forecast[1] && count > 0);
+  if (show) {
+    const displayTime = count === 0 ? "Nu" : hourTime;
+    const box = document.createElement("div");
+    box.className = "hourly-box";
+    box.innerHTML = `
+      <div><strong>${displayTime}</strong></div>
+      <img src="https:${hourData.condition.icon}" alt="${hourData.condition.text}" />
+      <div>${hourData.temp_c}°C</div>
+    `;
+    hourlyScroll.appendChild(box);
+    count++;
+  }
+}
+
+
+
+
+    // Aktuelt vejr + 8-dages forecast (tekst i #result)
     let output = `
 ${data.location.name}, ${data.location.country}
 Temperatur: ${current.temp_c}°C (føles som ${current.feelslike_c}°C)
@@ -75,16 +134,26 @@ ${day.date}:
 `;
     });
 
-    // Time-for-time for første dag
-    output += "\n--- Time-for-time vejr i dag ---\n";
-    forecast[0].hour.forEach(hour => {
-      const time = hour.time.split(" ")[1]; // hh:mm
-      output += `${time}: ${hour.temp_c}°C (føles som ${hour.feelslike_c}°C), ${hour.condition.text}, Vind: ${hour.wind_kph} km/t, UV: ${hour.uv}\n`;
-    });
-
     result.textContent = output;
 
   } catch (err) {
     result.textContent = `Fejl: ${err.message}`;
   }
 }
+
+// Geolokation – kald ved load
+window.addEventListener("load", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const coords = `${position.coords.latitude},${position.coords.longitude}`;
+        getWeather(coords);
+      },
+      err => {
+        console.warn("Geolokation ikke tilgængelig, brug manuel søgning.");
+      }
+    );
+  } else {
+    console.warn("Geolokation understøttes ikke af denne browser.");
+  }
+});
