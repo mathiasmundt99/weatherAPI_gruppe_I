@@ -1,0 +1,107 @@
+/* Body & container */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(to bottom, #eef2f3, #ffffff);
+  margin: 0;
+  padding: 1rem;
+  font-size: 18px; 
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
+input {
+  font-size: 3rem;      
+  height: 6rem;
+  width: 100%;
+  margin: 0 auto 15px auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+
+/* Autocomplete liste */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border-radius: 12px;
+  font-size: 1.8rem; /* større og læsbar */
+}
+
+ul li {
+  padding: 12px 15px;
+  background: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background: #f0f0f0;
+}
+
+/* Grid bokse */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  justify-items: center;
+}
+
+.hourly-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.hourly-scroll {
+  display: flex;
+  gap: 12px;
+}
+
+.hourly-box {
+  min-width: 100px;      /* bredde på hver time-boks */
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  flex-shrink: 0;        /* forhindrer bokse i at krympe */
+  font-size: 1.4rem;
+}
+
+.hourly-box img {
+  width: 50px;
+  height: 50px;
+  margin: 5px 0;
+}
+
+
+.box {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  text-align: center;
+  font-size: 2rem; 
+  width: 80%;
+  max-width: 100%;
+}
+
+/* Resultat / forecast */
+#result {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  white-space: pre-wrap; 
+}
+
