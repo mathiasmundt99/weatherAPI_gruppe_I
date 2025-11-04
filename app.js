@@ -16,7 +16,7 @@ async function getSuggestions(query) {
   if (query.length < 2) return;
 
   try {
-    const url = `https://api.weatherapi.com/v1/search.json?key=${key}&q=${encodeURIComponent(query)}`;
+    const url = `https://api.weatherapi.com/v1/search.json?key=${key}&lang=da&q=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -40,7 +40,7 @@ async function getWeather(city) {
   result.textContent = "Henter vejr...";
 
   try {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${encodeURIComponent(city)}&days=8&aqi=no&alerts=no&lang=da`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&lang=da&q=${encodeURIComponent(city)}&days=8&aqi=no&alerts=no&lang=da`;
     const res = await fetch(url);
     const data = await res.json();
 
