@@ -10,13 +10,13 @@ cityInput.addEventListener("input", () => {
   getSuggestions(query);
 });
 
-// Autocomplete forslag
+// Hent autocomplete forslag
 async function getSuggestions(query) {
   suggestions.innerHTML = "";
   if (query.length < 2) return;
 
   try {
-    const url = `https://api.weatherapi.com/v1/search.json?key=${key}&lang=da&q=${encodeURIComponent(query)}`;
+    const url = `https://api.weatherapi.com/v1/search.json?key=${key}&q=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -36,11 +36,11 @@ async function getSuggestions(query) {
 }
 
 // Hent vejr + forecast
-async function getWeather(city) {
+async function getWeather(cityOrCoords) {
   result.textContent = "Henter vejr...";
 
   try {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&lang=da&q=${encodeURIComponent(city)}&days=8&aqi=no&alerts=no&lang=da`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${encodeURIComponent(cityOrCoords)}&days=8&aqi=no&alerts=no&lang=da`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -88,3 +88,20 @@ ${day.date}:
     result.textContent = `Fejl: ${err.message}`;
   }
 }
+
+// Geolokation – kald ved load
+window.addEventListener("load", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const coords = `${position.coords.latitude},${position.coords.longitude}`;
+        getWeather(coords);
+      },
+      err => {
+        console.warn("Geolokation ikke tilgængelig, brug manuel søgning.");
+      }
+    );
+  } else {
+    console.warn("Geolokation understøttes ikke af denne browser.");
+  }
+});
