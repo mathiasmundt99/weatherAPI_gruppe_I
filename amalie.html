@@ -5,12 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vejrapp</title>
     <link rel="stylesheet" href="amalie.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
   <body>
+    <nav>
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-profile', this)">
+      <span class="material-symbols-outlined nav-icon">person</span>
+      <p>Mine oplysninger</p>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-favorite', this)">
+      <span class="material-symbols-outlined nav-icon">star</span>
+      <p>Gemte lokationer</p>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-settings', this)">
+      <span class="material-symbols-outlined nav-icon">settings</span>
+      <p>Indstillinger</p>
+    </div>
+    </nav>
+
+
     <div class="searchContainer">
       <input id="cityInput" type="text" placeholder="Søg efter by..." />
       <ul id="suggestions" class="suggestions-list"></ul>
@@ -73,6 +92,53 @@
         <p class="luftData"></p>
       </div>
     </section>
+
+    <div class="overlay-container" id="overlay-profile">
+      <span class="material-symbols-outlined close-icon">close</span>
+    </div>
+
+    <div class="overlay-container" id="overlay-favorite">
+      <span class="material-symbols-outlined close-icon">close</span>
+    </div> 
+
+    <div class="overlay-container" id="overlay-settings">
+      <span class="material-symbols-outlined close-icon">close</span>
+      <div class="data">
+        <h2>Hvilke data ønsker du at se?</h2>
+        <div class="data-containers">
+          <div class="uv dataStyle">
+            <div>
+              <h3>Uv indeks</h3>
+            </div>
+          </div>
+          <div class="datastyle">
+            <div>
+              <h3>Nedbør</h3>
+            </div>
+          </div>
+          <div class="datastyle">
+            <div>
+              <h3>Vind</h3>
+            </div>
+          </div>
+          <div class="datastyle">
+            <div>
+              <h3>Solnedgang</h3>
+            </div>
+          </div>
+          <div class="datastyle">
+            <div>
+              <h3>Luftfugtighed</h3>
+            </div>
+          </div>
+          <div class="datastyle">
+            <div>
+              <h3>Sigtbarhed</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="amalie.js"></script>
   </body>
 </html>
