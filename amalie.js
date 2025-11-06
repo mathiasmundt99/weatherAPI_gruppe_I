@@ -1,14 +1,61 @@
 const apiKey = "513ba87c99fa4dbda65140408252910";
 const baseUrl = "https://api.weatherapi.com/v1";
 
-// Standard by og antal dage
 let city = "Copenhagen";
 let days = 5;
 
-// Hent data fra vejr API
+// DOM-elementer 
+const cityInput = document.getElementById("cityInput");
+const suggestions = document.getElementById("suggestions");
+const hourlyScroll = document.getElementById("hourlyScroll");
+
+//EVENT: Søgefelt input 
+cityInput.addEventListener("input", () => {
+  const query = cityInput.value.trim();
+  getSuggestions(query);
+});
+
+// Hent forslag (autocomplete)
+async function getSuggestions(query) {
+  suggestions.innerHTML = "";
+  if (query.length < 2) {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch(`${baseUrl}/search.json?key=${apiKey}&q=${encodeURIComponent(query)}`);
+    const data = await res.json();
+
+    if (!data.length) {
+      suggestions.style.display = "none";
+      return;
+    }
+
+    suggestions.style.display = "block";
+
+    data.forEach(city => {
+      const li = document.createElement("li");
+      li.textContent = `${city.name}, ${city.country}`;
+      li.onclick = () => {
+        cityInput.value = city.name;
+        suggestions.innerHTML = "";
+        suggestions.style.display = "none";
+        getWeather(city.name);
+      };
+      suggestions.appendChild(li);
+    });
+  } catch (err) {
+    console.error("Fejl ved søgning:", err);
+  }
+}
+
+// === Hent vejrdata ===
 async function getWeather(locationQuery) {
   try {
-    const response = await fetch(`${baseUrl}/forecast.json?key=${apiKey}&q=${locationQuery}&days=${days}&aqi=no&alerts=no&lang=da`);
+    const response = await fetch(
+      `${baseUrl}/forecast.json?key=${apiKey}&q=${locationQuery}&days=${days}&aqi=no&alerts=no&lang=da`
+    );
     if (!response.ok) throw new Error("By ikke fundet");
     const data = await response.json();
 
@@ -21,7 +68,7 @@ async function getWeather(locationQuery) {
   }
 }
 
-// Vis vejret i dag
+// Vis i dag 
 function showWeatherToday(data) {
   const { location, current, forecast } = data;
 
@@ -31,7 +78,6 @@ function showWeatherToday(data) {
   document.querySelector(".cityView img").src = `https:${current.condition.icon}`;
   document.querySelector(".cityView img").alt = current.condition.text;
 
-  const hourlyScroll = document.getElementById("hourlyScroll");
   hourlyScroll.innerHTML = "";
 
   const hours = forecast.forecastday[0].hour;
@@ -52,8 +98,8 @@ function showWeatherToday(data) {
   });
 }
 
-// Anbefalet tøjvalg
-function clothing(data){
+// Tøj-anbefaling 
+function clothing(data) {
   const { current } = data;
   const clothingEl = document.querySelector(".clothingP");
 
@@ -63,7 +109,7 @@ function clothing(data){
   else clothingEl.textContent = "Sommervejr, så på med solbriller og en t-shirt";
 }
 
-// Vis vejret de næste 5 dage
+// 5-dages forecast 
 function showWeatherNextDays(data) {
   const { forecast } = data;
   const forecastEl = document.querySelector(".forecast");
@@ -87,8 +133,8 @@ function showWeatherNextDays(data) {
   });
 }
 
-// Viser de 6 stykker vejrdata
-function weatherData(data){
+// Ekstra vejrdata 
+function weatherData(data) {
   const { current, forecast } = data;
   document.querySelector(".uvData").textContent = current.uv;
   document.querySelector(".regnData").textContent = current.precip_mm + " mm";
@@ -98,17 +144,17 @@ function weatherData(data){
   document.querySelector(".luftData").textContent = current.humidity + " %";
 }
 
-// Geo lokation
+// Geolokation ved load 
 window.addEventListener("load", () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       pos => {
         const coords = `${pos.coords.latitude},${pos.coords.longitude}`;
-        getWeather(coords); 
+        getWeather(coords);
       },
       err => {
         console.warn("Geolokation ikke tilgængelig, bruger standardbyen.");
-        getWeather(city); 
+        getWeather(city);
       }
     );
   } else {
