@@ -76,7 +76,11 @@
         <span id="favStar" class="material-symbols-outlined">star_outline</span>
       </h1>
       <p class="cityDegree"></p>
+      <h1 class="cityName"></h1>
       <p class="cityDescription"></p>
+      <p class="cityDegree"></p>
+      <p class="feelsLike"></p>
+ 
     </section>
     <section class="hourly-container">
       <div class="hourlyScroll" id="hourlyScroll"></div>
@@ -94,7 +98,7 @@
         </div>
         <p class="uvData"></p>
       </div>
-      <div class="nedbør dataStyle">
+      <div class="nedbor dataStyle">
         <div>
           <h3>Nedbør</h3>
           <span class="material-symbols-outlined"> rainy </span>
@@ -108,21 +112,21 @@
         </div>
         <p class="vindData"></p>
       </div>
-      <div class="solnedgang dataStyle">
+      <div class="sol dataStyle">
         <div>
           <h3>Solnedgang</h3>
           <span class="material-symbols-outlined"> wb_twilight </span>
         </div>
         <p class="solData"></p>
       </div>
-      <div class="sigtbarhed dataStyle">
+      <div class="sigt dataStyle">
         <div>
           <h3>Sigtbarhed</h3>
           <span class="material-symbols-outlined"> foggy </span>
         </div>
         <p class="sigtData"></p>
       </div>
-      <div class="luftfugtighed dataStyle">
+      <div class="fugt dataStyle">
         <div>
           <h3>Luftfugtighed</h3>
           <span class="material-symbols-outlined"> humidity_mid </span>
@@ -161,42 +165,74 @@
 
     <div class="overlay-container" id="overlay-settings">
       <span class="material-symbols-outlined close-icon">close</span>
-      <div class="data">
+      <div class="data-settings">
         <h2>Hvilke data ønsker du at se?</h2>
         <div class="data-containers">
-          <div class="dataStyle">
+          <div class="dataStyle" id="uv">
             <div>
               <h3>Uv indeks</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="nedbor">
             <div>
               <h3>Nedbør</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="vind">
             <div>
               <h3>Vind</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="sol">
             <div>
               <h3>Solnedgang</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="fugt">
             <div>
               <h3>Luftfugtighed</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="sigt">
             <div>
               <h3>Sigtbarhed</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
         </div>
       </div>
+      <div class="units-settings">
+        <h2>Enheder</h2>
+        <select id="unitSelect">
+          <option value="metric">Danske (°C, m/s, mm, km)</option>
+          <option value="imperial">Engelske (°F, mph, in, miles)</option>
+        </select>
+      </div>
     </div>
+  
     <script src="amalie.js"></script>
   </body>
 </html>
