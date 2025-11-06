@@ -92,7 +92,7 @@
         </div>
         <p class="uvData"></p>
       </div>
-      <div class="nedbør dataStyle">
+      <div class="nedbor dataStyle">
         <div>
           <h3>Nedbør</h3>
           <span class="material-symbols-outlined"> rainy </span>
@@ -106,21 +106,21 @@
         </div>
         <p class="vindData"></p>
       </div>
-      <div class="solnedgang dataStyle">
+      <div class="sol dataStyle">
         <div>
           <h3>Solnedgang</h3>
           <span class="material-symbols-outlined"> wb_twilight </span>
         </div>
         <p class="solData"></p>
       </div>
-      <div class="sigtbarhed dataStyle">
+      <div class="sigt dataStyle">
         <div>
           <h3>Sigtbarhed</h3>
           <span class="material-symbols-outlined"> foggy </span>
         </div>
         <p class="sigtData"></p>
       </div>
-      <div class="luftfugtighed dataStyle">
+      <div class="fugt dataStyle">
         <div>
           <h3>Luftfugtighed</h3>
           <span class="material-symbols-outlined"> humidity_mid </span>
@@ -129,27 +129,26 @@
       </div>
     </section>
 
-  <div class="overlay-container" id="overlay-profile">
-  <span class="material-symbols-outlined close-icon">close</span>
+    <div class="overlay-container" id="overlay-profile">
+      <span class="material-symbols-outlined close-icon">close</span>
+      <div class="data">
+        <h2>Mine oplysninger</h2>
+        <form id="profileForm">
+          <label for="profileName">Navn:</label>
+          <input type="text" id="profileName" required>
 
-  <div class="data">
-    <h2>Mine oplysninger</h2>
-    <form id="profileForm">
-      <label for="profileName">Navn:</label>
-      <input type="text" id="profileName" required>
+          <label for="profileGenderSelect">Køn:</label>
+          <select id="profileGenderSelect" name="profileGender" required>
+            <option value="" disabled selected>Vælg dit køn</option>
+            <option value="Mand">Mand</option>
+            <option value="Kvinde">Kvinde</option>
+            <option value="Andet">Andet</option>
+          </select>
 
-      <label for="profileGenderSelect">Køn:</label>
-      <select id="profileGenderSelect" name="profileGender" required>
-        <option value="" disabled selected>Vælg dit køn</option>
-        <option value="Mand">Mand</option>
-        <option value="Kvinde">Kvinde</option>
-        <option value="Andet">Andet</option>
-      </select>
-
-      <button type="submit" class="primary-btn">Gem ændringer</button>
-    </form>
-  </div>
-</div>
+          <button type="submit" class="primary-btn">Gem ændringer</button>
+        </form>
+      </div>
+    </div>
 
     <div class="overlay-container" id="overlay-favorite">
       <span class="material-symbols-outlined close-icon">close</span>
