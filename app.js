@@ -303,16 +303,25 @@ window.addEventListener("load", () => {
 });
 
 // velkommen side og profil
+
+// Hent gemt brugerprofil fra localStorage
 let profile = JSON.parse(localStorage.getItem("userProfile") || "null");
+
+// Henter elementer til velkommen overlay og formular
 const welcomeOverlay = document.getElementById("welcomeOverlay");
 const welcomeForm = document.getElementById("welcomeForm");
+
+// Hvis der ikke findes en oprettet profil, viser den overlay
 if (welcomeOverlay && !profile) {
   welcomeOverlay.style.display = "flex";
+  // Når brugeren udfylder forumlar og submitter forhindres overlay for at blive vist
   if (welcomeForm) {
     welcomeForm.addEventListener("submit", e => {
       e.preventDefault();
+      // Henter navn og køn fra inputfelterne
       const name = document.getElementById("name").value.trim();
       const gender = document.getElementById("genderSelect").value;
+      // Hvis begge felter bliver udfyldt, gemmes profil i localstorage
       if (name && gender) {
         localStorage.setItem("userProfile", JSON.stringify({ name, gender }));
         profile = { name, gender };
@@ -321,18 +330,24 @@ if (welcomeOverlay && !profile) {
     });
   }
 }
+
+// Profil
+// Henter  profilformular elementerme
 const profileForm = document.getElementById("profileForm");
 const nameInput = document.getElementById("profileName");
 const genderSelect = document.getElementById("profileGenderSelect");
+// Hvis der findes en profil, vil den vise det i felterne
 if (profileForm) {
   if (profile) {
     if (nameInput) nameInput.value = profile.name;
     if (genderSelect) genderSelect.value = profile.gender;
   }
+  // Når brugeren gemmer ændringer
   profileForm.addEventListener("submit", e => {
     e.preventDefault();
     const name = nameInput?.value.trim();
     const gender = genderSelect?.value;
+    // Opdater profil i local storage
     if (name && gender) {
       localStorage.setItem("userProfile", JSON.stringify({ name, gender }));
       profile = { name, gender };
@@ -340,10 +355,12 @@ if (profileForm) {
     }
   });
 }
+// Overvåger overlay, så felterne bliver opdateret
 const overlayProfile = document.getElementById("overlay-profile");
 if (overlayProfile) {
   const observer = new MutationObserver(() => {
     if (overlayProfile.classList.contains("show")) {
+      // Henter den opdaterede profil fra localstorage
       const currentProfile = JSON.parse(localStorage.getItem("userProfile") || "null");
       if (currentProfile) {
         if (nameInput) nameInput.value = currentProfile.name;
