@@ -5,30 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vejrapp</title>
     <link rel="stylesheet" href="amalie.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
   </head>
   <body>
     <nav>
-    <div class="nav-link-wrapper" onclick="openOverlay('overlay-profile', this)">
-      <span class="material-symbols-outlined nav-icon">person</span>
-      <p>Mine oplysninger</p>
-    </div>
+      <div
+        class="nav-link-wrapper"
+        onclick="openOverlay('overlay-profile', this)"
+      >
+        <span class="material-symbols-outlined nav-icon">person</span>
+        <p>Mine oplysninger</p>
+      </div>
 
-    <div class="nav-divider"></div>
+      <div class="nav-divider"></div>
 
-    <div class="nav-link-wrapper" onclick="openOverlay('overlay-favorite', this)">
-      <span class="material-symbols-outlined nav-icon">star</span>
-      <p>Gemte lokationer</p>
-    </div>
+      <div
+        class="nav-link-wrapper"
+        onclick="openOverlay('overlay-favorite', this)"
+      >
+        <span class="material-symbols-outlined nav-icon">star</span>
+        <p>Gemte lokationer</p>
+      </div>
 
-    <div class="nav-divider"></div>
+      <div class="nav-divider"></div>
 
-    <div class="nav-link-wrapper" onclick="openOverlay('overlay-settings', this)">
-      <span class="material-symbols-outlined nav-icon">settings</span>
-      <p>Indstillinger</p>
-    </div>
+      <div
+        class="nav-link-wrapper"
+        onclick="openOverlay('overlay-settings', this)"
+      >
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <p>Indstillinger</p>
+      </div>
     </nav>
-
 
     <div class="searchContainer">
       <input id="cityInput" type="text" placeholder="Søg efter by..." />
@@ -36,7 +47,10 @@
     </div>
     <section class="cityView">
       <img src="" alt="" />
-      <h1 class="cityName"></h1>
+      <h1 class="cityName">
+        <span id="cityNameText"></span>
+        <span id="favStar" class="material-symbols-outlined">star_outline</span>
+      </h1>
       <p class="cityDegree"></p>
       <p class="cityDescription"></p>
     </section>
@@ -99,7 +113,9 @@
 
     <div class="overlay-container" id="overlay-favorite">
       <span class="material-symbols-outlined close-icon">close</span>
-    </div> 
+      <h2>Gemte byer</h2>
+      <ul id="favList"></ul>
+    </div>
 
     <div class="overlay-container" id="overlay-settings">
       <span class="material-symbols-outlined close-icon">close</span>

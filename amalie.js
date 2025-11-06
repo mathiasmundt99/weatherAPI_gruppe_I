@@ -1,21 +1,23 @@
 const apiKey = "513ba87c99fa4dbda65140408252910";
 const baseUrl = "https://api.weatherapi.com/v1";
-
-let city = "Copenhagen";
 let days = 5;
 
 // DOM-elementer 
 const cityInput = document.getElementById("cityInput");
 const suggestions = document.getElementById("suggestions");
 const hourlyScroll = document.getElementById("hourlyScroll");
+const cityNameText = document.getElementById("cityNameText");
+const favStar = document.getElementById("favStar");
+const overlayFavorite = document.getElementById("overlay-favorite");
 
-//EVENT: Søgefelt input 
+let currentCity = "";
+
+// ==== Autocomplete søgning ====
 cityInput.addEventListener("input", () => {
   const query = cityInput.value.trim();
   getSuggestions(query);
 });
 
-// Hent forslag (autocomplete)
 async function getSuggestions(query) {
   suggestions.innerHTML = "";
   if (query.length < 2) {
@@ -26,7 +28,6 @@ async function getSuggestions(query) {
   try {
     const res = await fetch(`${baseUrl}/search.json?key=${apiKey}&q=${encodeURIComponent(query)}`);
     const data = await res.json();
-
     if (!data.length) {
       suggestions.style.display = "none";
       return;
@@ -50,7 +51,7 @@ async function getSuggestions(query) {
   }
 }
 
-// === Hent vejrdata ===
+// ==== Hent vejrdata ====
 async function getWeather(locationQuery) {
   try {
     const response = await fetch(
@@ -59,27 +60,29 @@ async function getWeather(locationQuery) {
     if (!response.ok) throw new Error("By ikke fundet");
     const data = await response.json();
 
+    currentCity = data.location.name;
+
     showWeatherToday(data);
     clothing(data);
     showWeatherNextDays(data);
     weatherData(data);
+    updateFavStar();
   } catch (error) {
     console.error(error);
   }
 }
 
-// Vis i dag 
+// ==== Vis dagens vejr ====
 function showWeatherToday(data) {
   const { location, current, forecast } = data;
 
-  document.querySelector(".cityName").textContent = location.name;
+  cityNameText.textContent = location.name;
   document.querySelector(".cityDegree").textContent = `${Math.round(current.temp_c)}°`;
   document.querySelector(".cityDescription").textContent = current.condition.text;
   document.querySelector(".cityView img").src = `https:${current.condition.icon}`;
   document.querySelector(".cityView img").alt = current.condition.text;
 
   hourlyScroll.innerHTML = "";
-
   const hours = forecast.forecastday[0].hour;
   const currentHour = new Date().getHours();
   const upcomingHours = hours.filter(h => new Date(h.time).getHours() >= currentHour);
@@ -98,7 +101,7 @@ function showWeatherToday(data) {
   });
 }
 
-// Tøj-anbefaling 
+// ==== Tøj-anbefaling ====
 function clothing(data) {
   const { current } = data;
   const clothingEl = document.querySelector(".clothingP");
@@ -109,7 +112,7 @@ function clothing(data) {
   else clothingEl.textContent = "Sommervejr, så på med solbriller og en t-shirt";
 }
 
-// 5-dages forecast 
+// ==== 5-dages forecast ====
 function showWeatherNextDays(data) {
   const { forecast } = data;
   const forecastEl = document.querySelector(".forecast");
@@ -133,7 +136,7 @@ function showWeatherNextDays(data) {
   });
 }
 
-// Ekstra vejrdata 
+// ==== Ekstra vejrdata ====
 function weatherData(data) {
   const { current, forecast } = data;
   document.querySelector(".uvData").textContent = current.uv;
@@ -144,31 +147,89 @@ function weatherData(data) {
   document.querySelector(".luftData").textContent = current.humidity + " %";
 }
 
-// Geolokation ved load 
-window.addEventListener("load", () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        const coords = `${pos.coords.latitude},${pos.coords.longitude}`;
-        getWeather(coords);
-      },
-      err => {
-        console.warn("Geolokation ikke tilgængelig, bruger standardbyen.");
-        getWeather(city);
-      }
-    );
+// ==== Favorit-håndtering ====
+favStar.addEventListener("click", () => {
+  let favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+
+  if (favourites.includes(currentCity)) {
+    favourites = favourites.filter(c => c !== currentCity);
   } else {
-    console.warn("Geolokation understøttes ikke, bruger standardbyen.");
-    getWeather(city);
+    favourites.push(currentCity);
   }
+
+  localStorage.setItem("favourites", JSON.stringify(favourites));
+  updateFavStar();
+  updateFavList();
 });
 
+function updateFavStar() {
+  const favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+  if (favourites.includes(currentCity)) {
+    favStar.classList.add("active");
+  } else {
+    favStar.classList.remove("active");
+  }
+}
 
+// ==== Favoritter overlay ====
+async function updateFavList() {
+  overlayFavorite.innerHTML = `<span class="material-symbols-outlined close-icon">close</span>`;
+  const favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
 
+  if (favourites.length === 0) {
+    overlayFavorite.innerHTML += `<p style="padding: 1rem;">Ingen favoritter gemt</p>`;
+    return;
+  }
 
+  favourites.forEach(async city => {
+    try {
+      const res = await fetch(`${baseUrl}/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=da`);
+      const data = await res.json();
+
+      const div = document.createElement("div");
+      div.classList.add("favCityBox");
+      div.innerHTML = `
+        <span class="material-symbols-outlined ${favourites.includes(city) ? "active" : ""}">star</span>
+        <p>${data.location.name}</p>
+        <p>${Math.round(data.current.temp_c)}°</p>
+      `;
+
+      // Klik på stjerne i overlay for at fjerne favorit
+      const starSpan = div.querySelector("span");
+      starSpan.addEventListener("click", () => {
+        let favs = JSON.parse(localStorage.getItem("favourites") || "[]");
+        favs = favs.filter(c => c !== city);
+        localStorage.setItem("favourites", JSON.stringify(favs));
+        updateFavList();
+        updateFavStar();
+      });
+
+      // Klik på by for at hente vejr
+      div.addEventListener("click", e => {
+        if (e.target !== starSpan) {
+          getWeather(city);
+          overlayFavorite.classList.remove("show");
+          document.body.classList.remove("no-scroll");
+        }
+      });
+
+      overlayFavorite.appendChild(div);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  overlayFavorite.querySelector(".close-icon").addEventListener("click", () => {
+    overlayFavorite.classList.remove("show");
+    document.body.classList.remove("no-scroll");
+    document.querySelectorAll(".nav-icon.active").forEach(i => i.classList.remove("active"));
+  });
+}
+
+// ==== Overlay funktion ====
 function openOverlay(id, el) {
   const overlays = document.querySelectorAll(".overlay-container");
-    const icons = document.querySelectorAll(".nav-link-wrapper .nav-icon");
+  const icons = document.querySelectorAll(".nav-link-wrapper .nav-icon");
 
   const current = document.getElementById(id);
   const isActive = current.classList.contains("show");
@@ -176,11 +237,12 @@ function openOverlay(id, el) {
   overlays.forEach(o => o.classList.remove("show"));
   icons.forEach(i => i.classList.remove("active"));
 
- if (!isActive) {
+  if (!isActive) {
     current.classList.add("show");
     document.body.classList.add("no-scroll");
-    const icon = el.querySelector(".nav-icon");
+    const icon = el?.querySelector(".nav-icon");
     if (icon) icon.classList.add("active");
+    if (id === "overlay-favorite") updateFavList();
   }
 }
 
@@ -195,4 +257,17 @@ document.querySelectorAll(".overlay-container .close-icon").forEach(btn => {
     document.body.classList.remove("no-scroll");
     document.querySelectorAll(".nav-icon.active").forEach(i => i.classList.remove("active"));
   });
+});
+
+// ==== Geolokation ved load ====
+window.addEventListener("load", () => {
+  const defaultCity = "Copenhagen";
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos => getWeather(`${pos.coords.latitude},${pos.coords.longitude}`),
+      () => getWeather(defaultCity)
+    );
+  } else {
+    getWeather(defaultCity);
+  }
 });

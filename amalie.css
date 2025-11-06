@@ -291,3 +291,76 @@ span.nav-icon.active{
   transform: translateY(0);
   overflow-y: hidden;
 }
+
+#favList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
+}
+
+#favList li {
+  padding: 0.5rem 1rem;
+  background-color: var(--blue);
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#favStar {
+  cursor: pointer;
+  font-size: 2.4rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.material-symbols-outlined.active {
+  color: gold; 
+  font-variation-settings: 
+    'FILL' 1,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Fav overlay box */
+.favCityBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* stjerne + by + temp på linje */
+  background-color: #152741;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#overlay-favorite .favCityBox p {
+    font-size: 2rem;
+    margin: 0 0.5rem;
+}
+#overlay-favorite .favCityBox span.material-symbols-outlined {
+    font-size: 2.2rem;
+    color: gold;
+    margin-right: 0.5rem;
+}
+.favCityBox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+/* Hvis byen ikke er favorit, bliver stjernen grå */
+.favCityBox span.material-symbols-outlined:not(.active) {
+  color: #aaa;
+}
+
+
+/* Sørger for at by og temp står på linje */
+.favCityBox p:nth-child(2) {
+  flex-grow: 1; /* tager plads mellem stjerne og temp */
+}
+
+
+
+
