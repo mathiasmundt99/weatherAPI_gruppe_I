@@ -7,64 +7,51 @@
     <link rel="stylesheet" href="amalie.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
   <body>
     <nav>
       <div
         class="nav-link-wrapper"
-        onclick="openOverlay('overlay-profile', this)"
-      >
+        onclick="openOverlay('overlay-profile', this)">
         <span class="material-symbols-outlined nav-icon">person</span>
         <p>Mine oplysninger</p>
       </div>
-
       <div class="nav-divider"></div>
-
       <div
         class="nav-link-wrapper"
-        onclick="openOverlay('overlay-favorite', this)"
-      >
+        onclick="openOverlay('overlay-favorite', this)">
         <span class="material-symbols-outlined nav-icon">star</span>
         <p>Gemte lokationer</p>
       </div>
-
       <div class="nav-divider"></div>
-
       <div
         class="nav-link-wrapper"
-        onclick="openOverlay('overlay-settings', this)"
-      >
+        onclick="openOverlay('overlay-settings', this)">
         <span class="material-symbols-outlined nav-icon">settings</span>
         <p>Indstillinger</p>
       </div>
     </nav>
-
-        <!-- Velkommen skærm overlay -->
-<div class="overlay" id="welcomeOverlay">
-  <div class="overlay-content">
-    <h2>Velkommen til din vejrapp</h2>
-    <p>For at give dig den bedste personalicerede oplevelse har vi brug for lidt oplysninger omkring dig</p>
-
-    <form id="welcomeForm">
-      <input type="text" id="name" placeholder="Navn" required>
-
-      <select id="genderSelect" required>
-        <option value="" disabled selected>Køn</option>
-        <option value="Mand">Mand</option>
-        <option value="Kvinde">Kvinde</option>
-        <option value="Andet">Andet</option>
-      </select>
-
-      <button type="submit" class="primary-btn">
-        Kom i gang →
-      </button>
-    </form>
-  </div>
-</div>
-
-
+    <!-- Velkommen skærm overlay -->
+    <div class="overlay" id="welcomeOverlay">
+      <div class="overlay-content">
+        <h2>Velkommen til din vejrapp</h2>
+        <p>
+          For at give dig den bedste personalicerede oplevelse har vi brug for
+          lidt oplysninger omkring dig
+        </p>
+        <form id="welcomeForm">
+          <input type="text" id="name" placeholder="Navn" required />
+          <select id="genderSelect" required>
+            <option value="" disabled selected>Køn</option>
+            <option value="Mand">Mand</option>
+            <option value="Kvinde">Kvinde</option>
+            <option value="Andet">Andet</option>
+          </select>
+          <button type="submit" class="primary-btn">Kom i gang →</button>
+        </form>
+      </div>
+    </div>
     <div class="searchContainer">
       <input id="cityInput" type="text" placeholder="Søg efter by..." />
       <ul id="suggestions" class="suggestions-list"></ul>
@@ -75,12 +62,9 @@
         <span id="cityNameText"></span>
         <span id="favStar" class="material-symbols-outlined">star_outline</span>
       </h1>
-      <p class="cityDegree"></p>
-      <h1 class="cityName"></h1>
       <p class="cityDescription"></p>
       <p class="cityDegree"></p>
       <p class="feelsLike"></p>
- 
     </section>
     <section class="hourly-container">
       <div class="hourlyScroll" id="hourlyScroll"></div>
@@ -134,35 +118,29 @@
         <p class="luftData"></p>
       </div>
     </section>
-
-  <div class="overlay-container" id="overlay-profile">
-  <span class="material-symbols-outlined close-icon">close</span>
-
-  <div class="data">
-    <h2>Mine oplysninger</h2>
-    <form id="profileForm">
-      <label for="profileName">Navn:</label>
-      <input type="text" id="profileName" required>
-
-      <label for="profileGenderSelect">Køn:</label>
-      <select id="profileGenderSelect" name="profileGender" required>
-        <option value="" disabled selected>Vælg dit køn</option>
-        <option value="Mand">Mand</option>
-        <option value="Kvinde">Kvinde</option>
-        <option value="Andet">Andet</option>
-      </select>
-
-      <button type="submit" class="primary-btn">Gem ændringer</button>
-    </form>
-  </div>
-</div>
-
+    <div class="overlay-container" id="overlay-profile">
+      <span class="material-symbols-outlined close-icon">close</span>
+      <div class="data">
+        <h2>Mine oplysninger</h2>
+        <form id="profileForm">
+          <label for="profileName">Navn:</label>
+          <input type="text" id="profileName" required />
+          <label for="profileGenderSelect">Køn:</label>
+          <select id="profileGenderSelect" name="profileGender" required>
+            <option value="" disabled selected>Vælg dit køn</option>
+            <option value="Mand">Mand</option>
+            <option value="Kvinde">Kvinde</option>
+            <option value="Andet">Andet</option>
+          </select>
+          <button type="submit" class="primary-btn">Gem ændringer</button>
+        </form>
+      </div>
+    </div>
     <div class="overlay-container" id="overlay-favorite">
       <span class="material-symbols-outlined close-icon">close</span>
       <h2>Gemte byer</h2>
       <ul id="favList"></ul>
     </div>
-
     <div class="overlay-container" id="overlay-settings">
       <span class="material-symbols-outlined close-icon">close</span>
       <div class="data-settings">
@@ -172,7 +150,7 @@
             <div>
               <h3>Uv indeks</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -181,7 +159,7 @@
             <div>
               <h3>Nedbør</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -190,7 +168,7 @@
             <div>
               <h3>Vind</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -199,7 +177,7 @@
             <div>
               <h3>Solnedgang</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -208,7 +186,7 @@
             <div>
               <h3>Luftfugtighed</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -217,7 +195,7 @@
             <div>
               <h3>Sigtbarhed</h3>
               <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" checked />
                 <span class="slider round"></span>
               </label>
             </div>
@@ -232,7 +210,6 @@
         </select>
       </div>
     </div>
-  
     <script src="amalie.js"></script>
   </body>
 </html>
