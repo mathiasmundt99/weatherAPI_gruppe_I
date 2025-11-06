@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vejrapp</title>
+    <link rel="stylesheet" href="amalie.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  </head>
+  <body>
+    <section class="cityView">
+      <img src="" alt="" />
+      <h1 class="cityName"></h1>
+      <p class="cityDegree"></p>
+      <p class="cityDescription"></p>
+    </section>
+    <section class="hourly-container">
+      <div class="hourlyScroll" id="hourlyScroll"></div>
+    </section>
+    <section class="clothing">
+      <h2>Anbefalet påklædning</h2>
+      <p class="clothingP"></p>
+    </section>
+    <section class="forecast"></section>
+    <section class="weatherData">
+      <div class="uv dataStyle">
+        <div>
+          <h3>Uv indeks</h3>
+          <span class="material-symbols-outlined"> nest_sunblock </span>
+        </div>
+        <p class="uvData"></p>
+      </div>
+      <div class="nedbør dataStyle">
+        <div>
+          <h3>Nedbør</h3>
+          <span class="material-symbols-outlined"> rainy </span>
+        </div>
+        <p class="regnData"></p>
+      </div>
+      <div class="vind dataStyle">
+        <div>
+          <h3>Vind</h3>
+          <span class="material-symbols-outlined"> air </span>
+        </div>
+        <p class="vindData"></p>
+      </div>
+      <div class="solnedgang dataStyle">
+        <div>
+          <h3>Solnedgang</h3>
+          <span class="material-symbols-outlined"> wb_twilight </span>
+        </div>
+        <p class="solData"></p>
+      </div>
+      <div class="sigtbarhed dataStyle">
+        <div>
+          <h3>Sigtbarhed</h3>
+          <span class="material-symbols-outlined"> foggy </span>
+        </div>
+        <p class="sigtData"></p>
+      </div>
+      <div class="luftfugtighed dataStyle">
+        <div>
+          <h3>Luftfugtighed</h3>
+          <span class="material-symbols-outlined"> humidity_mid </span>
+        </div>
+        <p class="luftData"></p>
+      </div>
+    </section>
+    <script src="amalie.js"></script>
+  </body>
+</html>

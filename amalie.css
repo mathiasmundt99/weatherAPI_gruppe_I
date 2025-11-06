@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
+*{
+  --darkBlue: #0E1A2B;
+  --blue: #152741;
+  --lightBlue: #4658D9;
+  --overlay: #000000E6;
+
+  font-family: "Bricolage Grotesque", sans-serif;
+  margin: 0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+/* Body & container */
+body {
+  font-family: "Bricolage Grotesque", sans-serif;
+  background-color: var(--darkBlue);
+  margin: 0;
+  padding: 1rem;
+  color: white;
+}
+
+/* city section */
+.cityView{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-block: 3rem;
+    gap: 1rem;
+}
+
+
+.cityName{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cityDegree{
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.cityDescription{
+    font-size: 16px;
+}
+
+.cityView img{
+    width: 100px;
+}
+
+/* hourly container */
+.hourlyScroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px;
+  flex-direction: row;
+}
+
+.hourCard {
+  background: var(--blue);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 70px;
+}
+
+.hourCard.active-hour {
+  background: var(--lightBlue);
+}
+
+
+/* clothing */
+
+.clothing{
+    background-color: var(--blue);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+     border-radius: 5px;
+}
+
+.clothing h2{
+    font-size: 15px;
+    font-style: bold;
+}
+
+.clothing p{
+    font-size: 13px;
+    font-style: normal;
+}
+
+/* forecast 5 days */
+.forecast{
+    background-color: var(--blue);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+.dayCard{
+      background-color: var(--darkBlue);
+        padding-block: 0.5rem;
+        padding-inline: 1rem;
+        border-radius: 5px;
+        display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dayCard.active-day {
+  background-color: #4b5bff;
+}
+
+.dayCard img{
+    width: 20%;
+}
+
+.dayCard p:first-child{
+    width: 40%;
+    font-size: 12px;
+    font-style: bold;
+}
+
+.dayCard p:last-child{
+    font-size: 15px;
+     font-style: bold;
+}
+
+/* vejrdata */
+.weatherData{
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.dataStyle {
+    background-color: var(--blue);
+       padding: 1rem;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+}
+
+.dataStyle div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dataStyle div h3{
+    font-size: 14px;
+    font-style: bold;
+}
+
+.dataStyle p{
+    font-size: 24px;
+    font-style: bold;
+}
