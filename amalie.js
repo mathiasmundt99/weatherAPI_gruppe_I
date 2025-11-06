@@ -105,6 +105,7 @@ function showWeatherToday(data) {
   document.querySelector(".cityDescription").textContent = current.condition.text;
   document.querySelector(".cityView img").src = `https:${current.condition.icon}`;
   document.querySelector(".cityView img").alt = current.condition.text;
+  document.querySelector(".feelsLike").textContent = `Føles som ${current.feelslike_c}°`;
 
   if (!hourlyScroll) return;
   hourlyScroll.innerHTML = "";
