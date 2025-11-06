@@ -18,11 +18,14 @@ nav{
     font-size: 1.25rem;
     padding: 0 1rem;
 }
-.close-icon{
+span.close-icon{
     color: white;
     cursor: pointer;
+    font-size: 4rem;
+    align-self: flex-end;
+    margin: 24px;
 }
-span.nav-icon, .close-icon{
+span.nav-icon{
     font-size: 4rem;
 }
 span.nav-icon.active{
@@ -37,9 +40,12 @@ span.nav-icon.active{
     width: 100%;
     height: 100%;
     background-color: var(--overlay);
-    padding: 20px;
     transform: translateY(100%);
     transition: transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    border-radius: 48px;
+    color: white;
 }
 .overlay-container.show {
   transform: translateY(0);

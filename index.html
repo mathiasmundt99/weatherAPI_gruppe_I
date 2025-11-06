@@ -32,21 +32,21 @@
   </div>
   
   <nav>
-    <div class="nav-link-wrapper" onclick="openProfile()">
-      <span class="material-symbols-rounded nav-icon active">person</span>
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-profile', this)">
+      <span class="material-symbols-rounded nav-icon">person</span>
       <p>Mine oplysninger</p>
     </div>
 
     <div class="nav-divider"></div>
 
-    <div class="nav-link-wrapper" onclick="openFavorite()">
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-favorite', this)">
       <span class="material-symbols-rounded nav-icon">star</span>
       <p>Gemte lokationer</p>
     </div>
 
     <div class="nav-divider"></div>
 
-    <div class="nav-link-wrapper" onclick="openSettings()">
+    <div class="nav-link-wrapper" onclick="openOverlay('overlay-settings', this)">
       <span class="material-symbols-rounded nav-icon">settings</span>
       <p>Indstillinger</p>
     </div>
@@ -63,6 +63,41 @@
 
   <div class="overlay-container" id="overlay-settings">
     <span class="material-symbols-rounded close-icon">close</span>
+    <div class="data">
+      <h2>Hvilke data ønsker du at se?</h2>
+      <div class="data-containers">
+        <div class="uv dataStyle">
+          <div>
+            <h3>Uv indeks</h3>
+          </div>
+        </div>
+        <div class="datastyle">
+          <div>
+            <h3>Nedbør</h3>
+          </div>
+        </div>
+        <div class="datastyle">
+          <div>
+            <h3>Vind</h3>
+          </div>
+        </div>
+        <div class="datastyle">
+          <div>
+            <h3>Solnedgang</h3>
+          </div>
+        </div>
+        <div class="datastyle">
+          <div>
+            <h3>Luftfugtighed</h3>
+          </div>
+        </div>
+        <div class="datastyle">
+          <div>
+            <h3>Sigtbarhed</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </body>
