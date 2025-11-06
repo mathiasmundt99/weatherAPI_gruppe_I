@@ -291,3 +291,66 @@ span.nav-icon.active{
   transform: translateY(0);
   overflow-y: hidden;
 }
+
+
+
+
+/* Rasmus del */
+/* Fuldt skærm overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0f172a; 
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Indhold */
+.overlay-content {
+  width: 90%;
+  max-width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Overskrift + tekst */
+.overlay-content h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.overlay-content p {
+  font-size: 1rem;
+  line-height: 1.4;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.overlay-content input,
+.overlay-content select {
+  width: 90vw;
+  padding: 2rem;
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  outline: none;
+}
+
+.overlay-content select option {
+  color: black;
+}
+/* Rasmus del slut */
+
