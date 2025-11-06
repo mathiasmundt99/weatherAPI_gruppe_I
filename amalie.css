@@ -292,65 +292,75 @@ span.nav-icon.active{
   overflow-y: hidden;
 }
 
-
-
-
-/* Rasmus del */
-/* Fuldt skærm overlay */
-.overlay {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #0f172a; 
-  color: white;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+#favList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
 }
 
-/* Indhold */
-.overlay-content {
-  width: 90%;
-  max-width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-/* Overskrift + tekst */
-.overlay-content h2 {
-  font-size: 1rem;
-  font-weight: 700;
+#favList li {
+  padding: 0.5rem 1rem;
+  background-color: var(--blue);
   margin-bottom: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.overlay-content p {
-  font-size: 1rem;
-  line-height: 1.4;
-  opacity: 0.8;
-  margin-bottom: 1.5rem;
+#favStar {
+  cursor: pointer;
+  font-size: 2.4rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
 
-/* Inputs */
-.overlay-content input,
-.overlay-content select {
-  width: 90vw;
-  padding: 2rem;
-  background-color: #1e293b;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 3rem;
-  outline: none;
+.material-symbols-outlined.active {
+  color: gold; 
+  font-variation-settings: 
+    'FILL' 1,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
-.overlay-content select option {
-  color: black;
+/* Fav overlay box */
+.favCityBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* stjerne + by + temp på linje */
+  background-color: #152741;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-/* Rasmus del slut */
+
+#overlay-favorite .favCityBox p {
+    font-size: 2rem;
+    margin: 0 0.5rem;
+}
+#overlay-favorite .favCityBox span.material-symbols-outlined {
+    font-size: 2.2rem;
+    color: gold;
+    margin-right: 0.5rem;
+}
+.favCityBox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+/* Hvis byen ikke er favorit, bliver stjernen grå */
+.favCityBox span.material-symbols-outlined:not(.active) {
+  color: #aaa;
+}
+
+
+/* Sørger for at by og temp står på linje */
+.favCityBox p:nth-child(2) {
+  flex-grow: 1; /* tager plads mellem stjerne og temp */
+}
+
+
+
 
