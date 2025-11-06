@@ -134,10 +134,21 @@ function clothing(data) {
   const { current } = data;
   const clothingEl = document.querySelector(".clothingP");
   if (!clothingEl) return;
-  if (current.temp_c < 5) clothingEl.textContent = "Tag en tyk vinterjakke og vinterstøvler på";
-  else if (current.temp_c < 15) clothingEl.textContent = "Tag en ekstra trøje med";
-  else if (current.temp_c < 20) clothingEl.textContent = "Tag en let jakke på";
-  else clothingEl.textContent = "Sommervejr, så på med solbriller og en t-shirt";
+
+  let recommendation = "";
+
+  
+  if (current.temp_c < 5) recommendation = "Tag en tyk vinterjakke og vinterstøvler på.";
+  else if (current.temp_c < 15) recommendation = "Tag en ekstra trøje med.";
+  else if (current.temp_c < 20) recommendation = "Tag en let jakke på.";
+  else recommendation = "Sommervejr, så på med solbriller og en t-shirt.";
+
+  
+  if (current.precip_mm > 0) {
+    recommendation += " Husk regntøj / paraply!";
+  }
+
+  clothingEl.textContent = recommendation;
 }
 
 // Vis vejret de næste 5 dage
