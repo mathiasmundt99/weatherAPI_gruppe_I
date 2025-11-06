@@ -14,78 +14,76 @@
     <nav>
       <div
         class="nav-link-wrapper"
-        onclick="openOverlay('overlay-profile', this)"
-      >
+        onclick="openOverlay('overlay-profile', this)">
         <span class="material-symbols-outlined nav-icon">person</span>
         <p>Mine oplysninger</p>
       </div>
 
       <div class="nav-divider"></div>
 
-      <div
-        class="nav-link-wrapper"
-        onclick="openOverlay('overlay-favorite', this)"
-      >
+      <div class="nav-link-wrapper" onclick="openOverlay('overlay-favorite', this)">
         <span class="material-symbols-outlined nav-icon">star</span>
         <p>Gemte lokationer</p>
       </div>
 
       <div class="nav-divider"></div>
 
-      <div
-        class="nav-link-wrapper"
-        onclick="openOverlay('overlay-settings', this)"
-      >
+      <div class="nav-link-wrapper" onclick="openOverlay('overlay-settings', this)">
         <span class="material-symbols-outlined nav-icon">settings</span>
         <p>Indstillinger</p>
       </div>
     </nav>
 
-        <!-- Velkommen skærm overlay -->
-<div class="overlay" id="welcomeOverlay">
-  <div class="overlay-content">
-    <h2>Velkommen til din vejrapp</h2>
-    <p>For at give dig den bedste personalicerede oplevelse har vi brug for lidt oplysninger omkring dig</p>
+    <!-- Velkommen skærm overlay -->
+    <div class="overlay" id="welcomeOverlay">
+      <div class="overlay-content">
+        <h2>Velkommen til din vejrapp</h2>
+        <p>For at give dig den bedste personalicerede oplevelse har vi brug for lidt oplysninger omkring dig</p>
 
-    <form id="welcomeForm">
-      <input type="text" id="name" placeholder="Navn" required>
+        <form id="welcomeForm">
+          <input type="text" id="name" placeholder="Navn" required>
 
-      <select id="genderSelect" required>
-        <option value="" disabled selected>Køn</option>
-        <option value="Mand">Mand</option>
-        <option value="Kvinde">Kvinde</option>
-        <option value="Andet">Andet</option>
-      </select>
+          <select id="genderSelect" required>
+            <option value="" disabled selected>Køn</option>
+            <option value="Mand">Mand</option>
+            <option value="Kvinde">Kvinde</option>
+            <option value="Andet">Andet</option>
+          </select>
 
-      <button type="submit" class="primary-btn">
-        Kom i gang →
-      </button>
-    </form>
-  </div>
-</div>
-
+          <button type="submit" class="primary-btn">
+            Kom i gang →
+          </button>
+        </form>
+      </div>
+    </div>
 
     <div class="searchContainer">
       <input id="cityInput" type="text" placeholder="Søg efter by..." />
       <ul id="suggestions" class="suggestions-list"></ul>
     </div>
+
     <section class="cityView">
       <img src="" alt="" />
       <h1 class="cityName">
         <span id="cityNameText"></span>
         <span id="favStar" class="material-symbols-outlined">star_outline</span>
       </h1>
-      <p class="cityDegree"></p>
       <p class="cityDescription"></p>
+      <p class="cityDegree"></p>
+      <p class="feelsLike"></p>
     </section>
+
     <section class="hourly-container">
       <div class="hourlyScroll" id="hourlyScroll"></div>
     </section>
+
     <section class="clothing">
       <h2>Anbefalet påklædning</h2>
       <p class="clothingP"></p>
     </section>
+
     <section class="forecast"></section>
+
     <section class="weatherData">
       <div class="uv dataStyle">
         <div>
