@@ -134,6 +134,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    margin-bottom: 6rem;
 }
 .dataStyle {
     background-color: var(--blue);
@@ -198,7 +199,7 @@ body {
 }
 
 
-
+/* navigation */
 nav{
     background-color: var(--navBlue);
     padding-block: 16px;
@@ -240,11 +241,11 @@ span.nav-icon.active{
 .overlay-container {
   z-index: 1;
   position: fixed;
-  top: 15%;
+  top: 5%;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-color: var(--overlay);
   transform: translateY(100%);
   transition: transform 0.3s ease-out;
@@ -252,37 +253,36 @@ span.nav-icon.active{
   flex-direction: column;
   border-radius: 48px;
   color: white;
-}
-.overlay-container.show {
-  transform: translateY(0);
-  overflow-y: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.data-settings{
+.data-settings, .units-settings{
   margin: 16px;
 }
-.data-settings h2{
+.data-settings h2, .units-settings h2{
   margin-bottom: 8px;
+  font-size: 20px;
 }
 .data-containers{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
-/* The switch - the box around the slider */
+
 .switch {
   position: relative;
   display: inline-block;
   width: 40px;
   height: 24px;
 }
-/* Hide default HTML checkbox */
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-/* The slider */
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -309,7 +309,7 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(16px);
 }
-/* Rounded sliders */
+
 .slider.round {
   border-radius: 24px;
 }
@@ -318,7 +318,7 @@ input:checked + .slider:before {
 }
 
 
-
+/* gemte lokalitioner */
 #favList {
   list-style: none;
   padding: 0;
@@ -340,17 +340,18 @@ input:checked + .slider:before {
 span#favStar.active {
   color: gold; 
 }
-/* Fav overlay box */
+
 .favCityBox {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* stjerne + by + temp på linje */
+  justify-content: space-between; 
   background-color: #152741;
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s;
+  margin: 1rem;
 }
 #overlay-favorite .favCityBox p {
     font-size: 2rem;
@@ -367,34 +368,36 @@ span#favStar.active {
     gap: 0.5rem;
     padding: 0.5rem 0;
 }
-/* Hvis byen ikke er favorit, bliver stjernen grå */
+
 .favCityBox span.material-symbols-outlined:not(.active) {
   color: #aaa;
 }
 
-/* Sørger for at by og temp står på linje */
+
 .favCityBox p:nth-child(2) {
-  flex-grow: 1; /* tager plads mellem stjerne og temp */
+  flex-grow: 1; 
 }
 
 
-/* Rasmus del */
-/* Fuldt skærm overlay */
+/* startskærm */
 .overlay {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   background: #0f172a; 
   color: white;
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  padding: 1rem;
 }
-/* Indhold */
+
+.overlay-container.show {
+  transform: translateY(0);
+}
+
 .overlay-content {
-  width: 90%;
+    padding: 1rem;
   max-width: 100%;
   text-align: center;
   display: flex;
@@ -402,30 +405,50 @@ span#favStar.active {
   align-items: center;
   gap: 2rem;
 }
-/* Overskrift + tekst */
+
+.profileData{
+    padding: 1rem;
+}
+
 .overlay-content h2 {
-  font-size: 1rem;
+  font-size: 30px;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  margin-top: 2rem;
 }
 .overlay-content p {
-  font-size: 1rem;
+  font-size: 15px;
   line-height: 1.4;
-  opacity: 0.8;
+font-style: bold;
   margin-bottom: 1.5rem;
 }
-/* Inputs */
+
 .overlay-content input,
-.overlay-content select {
-  width: 90vw;
+.overlay-content select, #profileForm input, #profileGenderSelect, #unitSelect {
   padding: 1rem;
   background-color: #1e293b;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 3rem;
-  margin-bottom: 3rem;
+  font-size: 20px;
+  margin-bottom: 1rem;
   outline: none;
+}
+
+#welcomeForm, #profileForm{
+    display: flex;
+    flex-direction: column;
+}
+
+#welcomeForm button, #profileForm button{
+    background-color: var(--lightBlue);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    font-style: bold;
+    margin-bottom: 2rem;
 }
 .overlay-content select option {
   color: black;

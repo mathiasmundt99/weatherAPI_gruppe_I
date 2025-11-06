@@ -1,26 +1,26 @@
-// ================== KONFIG ==================
+
 const apiKey = "513ba87c99fa4dbda65140408252910";
 const baseUrl = "https://api.weatherapi.com/v1";
 let days = 5;
-// ================== DOM-REFERENCER ==================
+
 const cityInput = document.getElementById("cityInput");
 const suggestions = document.getElementById("suggestions");
 const hourlyScroll = document.getElementById("hourlyScroll");
 const cityNameText = document.getElementById("cityNameText");
 const favStar = document.getElementById("favStar");
 const overlayFavorite = document.getElementById("overlay-favorite");
-// Kan mangle på nogle sider – brug defensive checks
 const cityDegreeEl = document.querySelector(".cityDegree");
 const cityDescEl = document.querySelector(".cityDescription");
 const cityViewImg = document.querySelector(".cityView img");
 const feelsLikeEl = document.querySelector(".feelsLike");
-// ================== STATE + STORAGE KEYS ==================
+
 let currentCity = "";
 const UNIT_STORAGE_KEY = "weather.units.v1";
 const TOGGLE_STORAGE_KEY = "weatherToggleSettings.v1";
 let unitSystem = localStorage.getItem(UNIT_STORAGE_KEY) || "metric";
 let lastWeatherData = null;
-// ================== ENHEDS-HJÆLPERE ==================
+
+// Javascript til enheder
 const U = {
   temp: (c, f) => unitSystem === "imperial" ? Math.round(f) : Math.round(c),
   windText: (kph, mph) =>
@@ -31,7 +31,8 @@ const U = {
     unitSystem === "imperial" ? `${miles} miles` : `${km} km`,
   deg: () => (unitSystem === "imperial" ? "°F" : "°C"),
 };
-// ================== SØGEFORSLAG ==================
+
+// Søgefunktion
 if (cityInput) {
   cityInput.addEventListener("input", () => {
     const query = cityInput.value.trim();
@@ -68,7 +69,8 @@ async function getSuggestions(query) {
     console.error("Fejl ved søgning:", err);
   }
 }
-// ================== HENT & RENDER VEJR ==================
+
+// Fetch funktion til at hente vejret
 async function getWeather(locationQuery) {
   try {
     const response = await fetch(
@@ -77,7 +79,7 @@ async function getWeather(locationQuery) {
     if (!response.ok) throw new Error("By ikke fundet");
     const data = await response.json();
     lastWeatherData = data;
-    currentCity = data?.location?.name || ""; // <-- Sæt currentCity så favoritstjerne virker
+    currentCity = data?.location?.name || ""; 
     renderAll(data);
   } catch (error) {
     console.error(error);
@@ -90,11 +92,11 @@ function renderAll(data) {
   weatherData(data);
   updateFavStar();
 }
-// ================== VIS DAGENS VEJR ==================
+
+// Vis dagens vejr
 function showWeatherToday(data) {
   const { location, current, forecast } = data;
   if (cityNameText) cityNameText.textContent = location.name;
-  // Brug enheds-hjælperne konsekvent
   if (cityDegreeEl) {
     cityDegreeEl.textContent = `${U.temp(current.temp_c, current.temp_f)}${U.deg()}`;
   }
@@ -106,7 +108,8 @@ function showWeatherToday(data) {
     cityViewImg.src = `https:${current.condition.icon}`;
     cityViewImg.alt = current.condition.text;
   }
-  // Timekort
+
+  // Time for time
   if (!hourlyScroll) return;
   hourlyScroll.innerHTML = "";
   const hours = forecast?.forecastday?.[0]?.hour || [];
@@ -125,18 +128,19 @@ function showWeatherToday(data) {
     hourlyScroll.appendChild(div);
   });
 }
-// ================== TØJ-ANBEFALING ==================
+
+// tøjanbefaling
 function clothing(data) {
   const { current } = data;
   const clothingEl = document.querySelector(".clothingP");
   if (!clothingEl) return;
-  // Logikken baseres på Celsius – teksten er generel
   if (current.temp_c < 5) clothingEl.textContent = "Tag en tyk vinterjakke og vinterstøvler på";
   else if (current.temp_c < 15) clothingEl.textContent = "Tag en ekstra trøje med";
   else if (current.temp_c < 20) clothingEl.textContent = "Tag en let jakke på";
   else clothingEl.textContent = "Sommervejr, så på med solbriller og en t-shirt";
 }
-// ================== 5-DAGES FORECAST ==================
+
+// Vis vejret de næste 5 dage
 function showWeatherNextDays(data) {
   const { forecast } = data;
   const forecastEl = document.querySelector(".forecast");
@@ -158,7 +162,8 @@ function showWeatherNextDays(data) {
     forecastEl.appendChild(div);
   });
 }
-// ================== ØVRIGE DATAKORT ==================
+
+// Vejrdata kort
 function weatherData(data) {
   const { current, forecast } = data;
   const uvEl = document.querySelector(".uvData");
@@ -174,7 +179,8 @@ function weatherData(data) {
   if (sigtEl) sigtEl.textContent = U.visText(current.vis_km, current.vis_miles);
   if (luftEl) luftEl.textContent = current.humidity + " %";
 }
-// ================== FAVORITTER ==================
+
+// Favoritter
 if (favStar) {
   favStar.addEventListener("click", () => {
     let favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
@@ -202,6 +208,12 @@ function updateFavStar() {
 async function updateFavList() {
   if (!overlayFavorite) return;
   overlayFavorite.innerHTML = `<span class="material-symbols-outlined close-icon">close</span>`;
+  overlayFavorite.querySelector(".close-icon").addEventListener("click", e => {
+    const overlay = e.currentTarget.closest(".overlay-container");
+    overlay?.classList.remove("show");
+    document.body.classList.remove("no-scroll");
+    document.querySelectorAll(".nav-icon.active").forEach(i => i.classList.remove("active"));
+  });
   const favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
   if (favourites.length === 0) {
     overlayFavorite.innerHTML += `<p style="padding: 1rem;">Ingen favoritter gemt</p>`;
@@ -238,7 +250,7 @@ async function updateFavList() {
       console.error(err);
     }
   }
-  // Re-wire close-knappen, da vi overskrev innerHTML
+
   overlayFavorite.querySelectorAll(".close-icon").forEach(btn => {
     btn.addEventListener("click", e => {
       const overlay = e.currentTarget.closest(".overlay-container");
@@ -248,7 +260,8 @@ async function updateFavList() {
     });
   });
 }
-// ================== OVERLAYS ==================
+
+// de 3 overlays fra menulinjen
 function openOverlay(id, el) {
   const overlays = document.querySelectorAll(".overlay-container");
   const icons = document.querySelectorAll(".nav-link-wrapper .nav-icon");
@@ -258,7 +271,7 @@ function openOverlay(id, el) {
   icons.forEach(i => i.classList.remove("active"));
   if (current && !isActive) {
     current.classList.add("show");
-    document.body.classList.add("no-scroll");
+     document.body.classList.add("no-scroll");
     const icon = el?.querySelector?.(".nav-icon");
     if (icon) icon.classList.add("active");
     if (id === "overlay-favorite") updateFavList();
@@ -275,7 +288,8 @@ document.querySelectorAll(".overlay-container .close-icon").forEach(btn => {
     document.querySelectorAll(".nav-icon.active").forEach(i => i.classList.remove("active"));
   });
 });
-// ================== GEOLOKATION VED LOAD ==================
+
+// Geolokation 
 window.addEventListener("load", () => {
   const defaultCity = "Copenhagen";
   if (navigator.geolocation) {
@@ -287,7 +301,8 @@ window.addEventListener("load", () => {
     getWeather(defaultCity);
   }
 });
-// ================== PROFIL & VELKOMMEN ==================
+
+// velkommen side og profil
 let profile = JSON.parse(localStorage.getItem("userProfile") || "null");
 const welcomeOverlay = document.getElementById("welcomeOverlay");
 const welcomeForm = document.getElementById("welcomeForm");
@@ -338,19 +353,19 @@ if (overlayProfile) {
   });
   observer.observe(overlayProfile, { attributes: true, attributeFilter: ["class"] });
 }
-// ================== INIT (TOGGLES + ENHEDSVÆLGER) ==================
+
+// indstillingstoggle og enhedsvælger
 document.addEventListener("DOMContentLoaded", () => {
-  // Enhedsvælger
   const unitSelect = document.getElementById("unitSelect");
   if (unitSelect) {
     unitSelect.value = unitSystem;
     unitSelect.addEventListener("change", () => {
       unitSystem = unitSelect.value;
       localStorage.setItem(UNIT_STORAGE_KEY, unitSystem);
-      if (lastWeatherData) renderAll(lastWeatherData); // <-- re-render med nye enheder
+      if (lastWeatherData) renderAll(lastWeatherData); 
     });
   }
-  // Toggle-visibility + persistens
+
   const toggles = document.querySelectorAll(".data-settings .dataStyle");
   const savedToggleState = loadSavedToggleState();
   toggles.forEach(toggle => {
@@ -367,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-// ================== TOGGLE-HJÆLPERE ==================
+
 function updateTargetVisibility(id, checked) {
   const target = document.querySelector(`.weatherData .${CSS.escape(id)}`);
   if (target) target.style.display = checked ? "block" : "none";
