@@ -29,6 +29,29 @@
     </div>
     </nav>
 
+        <!-- Velkommen skærm overlay -->
+<div class="overlay" id="welcomeOverlay">
+  <div class="overlay-content">
+    <h2>Velkommen til din vejrapp</h2>
+    <p>For at give dig den bedste personalicerede oplevelse har vi brug for lidt oplysninger omkring dig</p>
+
+    <form id="welcomeForm">
+      <input type="text" id="name" placeholder="Navn" required>
+
+      <select id="genderSelect" required>
+        <option value="" disabled selected>Køn</option>
+        <option value="Mand">Mand</option>
+        <option value="Kvinde">Kvinde</option>
+        <option value="Andet">Andet</option>
+      </select>
+
+      <button type="submit" class="primary-btn">
+        Kom i gang →
+      </button>
+    </form>
+  </div>
+</div>
+
 
     <div class="searchContainer">
       <input id="cityInput" type="text" placeholder="Søg efter by..." />
@@ -93,9 +116,27 @@
       </div>
     </section>
 
-    <div class="overlay-container" id="overlay-profile">
-      <span class="material-symbols-outlined close-icon">close</span>
-    </div>
+  <div class="overlay-container" id="overlay-profile">
+  <span class="material-symbols-outlined close-icon">close</span>
+
+  <div class="data">
+    <h2>Mine oplysninger</h2>
+    <form id="profileForm">
+      <label for="profileName">Navn:</label>
+      <input type="text" id="profileName" required>
+
+      <label for="profileGenderSelect">Køn:</label>
+      <select id="profileGenderSelect" name="profileGender" required>
+        <option value="" disabled selected>Vælg dit køn</option>
+        <option value="Mand">Mand</option>
+        <option value="Kvinde">Kvinde</option>
+        <option value="Andet">Andet</option>
+      </select>
+
+      <button type="submit" class="primary-btn">Gem ændringer</button>
+    </form>
+  </div>
+</div>
 
     <div class="overlay-container" id="overlay-favorite">
       <span class="material-symbols-outlined close-icon">close</span>
