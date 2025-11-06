@@ -30,6 +30,9 @@ body {
   padding: 1rem;
   color: white;
 }
+.no-scroll{
+  overflow: hidden;
+}
 /* city section */
 .cityView{
     display: flex;
