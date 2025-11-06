@@ -158,40 +158,71 @@
 
     <div class="overlay-container" id="overlay-settings">
       <span class="material-symbols-outlined close-icon">close</span>
-      <div class="data">
+      <div class="data-settings">
         <h2>Hvilke data ønsker du at se?</h2>
         <div class="data-containers">
-          <div class="dataStyle">
+          <div class="dataStyle" id="uv">
             <div>
               <h3>Uv indeks</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="nedbor">
             <div>
               <h3>Nedbør</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="vind">
             <div>
               <h3>Vind</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="sol">
             <div>
               <h3>Solnedgang</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="fugt">
             <div>
               <h3>Luftfugtighed</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
-          <div class="dataStyle">
+          <div class="dataStyle" id="sigt">
             <div>
               <h3>Sigtbarhed</h3>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
         </div>
+      </div>
+      <div class="units-settings">
+        <h2>Enheder</h2>
+        <select id="unitSelect">
+          <option value="metric">Danske (°C, m/s, mm, km)</option>
+          <option value="imperial">Engelske (°F, mph, in, miles)</option>
+        </select>
       </div>
     </div>
     <script src="amalie.js"></script>
