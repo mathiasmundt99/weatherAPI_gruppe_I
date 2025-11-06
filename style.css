@@ -18,7 +18,11 @@ nav{
     font-size: 1.25rem;
     padding: 0 1rem;
 }
-span.nav-icon{
+.close-icon{
+    color: white;
+    cursor: pointer;
+}
+span.nav-icon, .close-icon{
     font-size: 4rem;
 }
 span.nav-icon.active{
@@ -40,10 +44,4 @@ span.nav-icon.active{
 .overlay-container.show {
   transform: translateY(0);
   overflow-y: hidden;
-}
-#overlay-favorite{
-    background-color: red;
-}
-#overlay-settings{
-    background-color: green;
 }
