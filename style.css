@@ -1,0 +1,49 @@
+nav{
+    background-color: var(--navBlue);
+    padding-block: 16px;
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+}
+.nav-divider{
+    background-color: white;
+    width: 3px;
+}
+.nav-link-wrapper{
+    color: white;
+    text-align: center;
+    font-size: 1.25rem;
+    padding: 0 1rem;
+}
+span.nav-icon{
+    font-size: 4rem;
+}
+span.nav-icon.active{
+    color: var(--lightBlue);
+}
+
+.overlay-container {
+    z-index: 1;
+    position: fixed;
+    top: 15%;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay);
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+.overlay-container.show {
+  transform: translateY(0);
+  overflow-y: hidden;
+}
+#overlay-favorite{
+    background-color: red;
+}
+#overlay-settings{
+    background-color: green;
+}
