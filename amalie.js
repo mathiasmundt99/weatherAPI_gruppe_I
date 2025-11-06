@@ -271,3 +271,69 @@ window.addEventListener("load", () => {
     getWeather(defaultCity);
   }
 });
+
+
+
+// PROFIL og velkommen
+// Hent eksisterende profil
+let profile = JSON.parse(localStorage.getItem("userProfile") || "null");
+
+// Velkommen-overlay
+const welcomeOverlay = document.getElementById("welcomeOverlay");
+const welcomeForm = document.getElementById("welcomeForm");
+
+if (welcomeOverlay && !profile) {
+  welcomeOverlay.style.display = "flex";
+
+  welcomeForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const gender = document.getElementById("genderSelect").value;
+    if (name && gender) {
+      localStorage.setItem("userProfile", JSON.stringify({ name, gender }));
+      profile = { name, gender };
+      welcomeOverlay.style.display = "none";
+    }
+  });
+}
+
+// Mine oplysninger (overlay-profile)
+const profileForm = document.getElementById("profileForm");
+const nameInput = document.getElementById("profileName");
+const genderSelect = document.getElementById("profileGenderSelect");
+
+if (profileForm) {
+  // Udfyld med gemte data hvis de findes
+  if (profile) {
+    nameInput.value = profile.name;
+    genderSelect.value = profile.gender;
+  }
+
+  // Gem ændringer
+  profileForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const gender = genderSelect.value;
+
+    if (name && gender) {
+      localStorage.setItem("userProfile", JSON.stringify({ name, gender }));
+      profile = { name, gender };
+      alert("Ændringer gemt!");
+    }
+  });
+}
+
+// Hver gang overlay-profile åbnes
+const overlayProfile = document.getElementById("overlay-profile");
+if (overlayProfile) {
+  const observer = new MutationObserver(() => {
+    if (overlayProfile.classList.contains("show")) {
+      const currentProfile = JSON.parse(localStorage.getItem("userProfile") || "null");
+      if (currentProfile) {
+        nameInput.value = currentProfile.name;
+        genderSelect.value = currentProfile.gender;
+      }
+    }
+  });
+  observer.observe(overlayProfile, { attributes: true, attributeFilter: ["class"] });
+}
