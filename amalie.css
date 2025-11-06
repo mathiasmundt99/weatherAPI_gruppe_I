@@ -234,28 +234,28 @@ body {
 
 
 nav{
-    background-color: var(--navBlue);
-    padding-block: 16px;
-    display: flex;
-    justify-content: space-evenly;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    z-index: 2;
+  background-color: var(--navBlue);
+  padding-block: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
 }
 nav p{
   font-size: 12px;
 }
 .nav-divider{
-    background-color: white;
-    width: 2px;
+  background-color: white;
+  width: 2px;
 }
 .nav-link-wrapper{
-    color: white;
-    text-align: center;
-    font-size: 1.25rem;
-    padding: 0 1rem;
+  color: white;
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 0 1rem;
 }
 span.close-icon{
   color: white;
@@ -313,13 +313,8 @@ span.nav-icon.active{
   vertical-align: middle;
 }
 
-.material-symbols-outlined.active {
+span#favStar.active {
   color: gold; 
-  font-variation-settings: 
-    'FILL' 1,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24;
 }
 
 /* Fav overlay box */
