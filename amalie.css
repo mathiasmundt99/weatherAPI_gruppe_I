@@ -173,3 +173,53 @@ body {
     font-size: 24px;
     font-style: bold;
 }
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  z-index: 10;
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+}
+
+#suggestions li {
+  padding: 12px 16px;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+#suggestions li:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#cityInput {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--blue);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+#cityInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
